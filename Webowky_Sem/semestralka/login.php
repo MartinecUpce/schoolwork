@@ -13,12 +13,13 @@ include 'elementals/header.php';
 <?php
 
 include 'config.php';
+include 'Connection.php';
 
 if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPassword"])) {
 
     //connect to database
-    $conn = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $conn = Connection::getPdoInstance();//new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
+   // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //get user by email and password
     $stmt = $conn->prepare("SELECT idUzivatel, userNick, userMail FROM uzivatel 
                                       WHERE userMail= :email and userPassword = :password");
@@ -47,6 +48,7 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
 
 <main>
     <link rel="stylesheet" type="text/css" href="css/test1.css">
+    <link rel="stylesheet" type="text/css" href="../css/test2.css">
     <div class="center-wrapper">
         <div>
             <h2>Login formula</h2>

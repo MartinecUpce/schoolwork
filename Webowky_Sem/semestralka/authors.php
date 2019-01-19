@@ -23,16 +23,25 @@ $result = $stmt -> fetchAll();
 ?>
 <main>
     <link rel="stylesheet" type="text/css" href="css/test1.css">
+    <link rel="stylesheet" type="text/css" href="../css/test2.css">
     <div class="center-wrapper">
         <div>
             <h2>Authors</h2>
-            <p>
-                <?php foreach( $result as $row ) { ?>
-            <p>  <?php echo $row['nick'];?>
-                     <?php echo $row['idAutor']; ?> </p>
-                 <?php } ?>
 
-            </p>
+            <table>
+                <tr>
+                    <th>Nick</th>
+                    <th>Rating</th>
+
+                </tr>
+
+                <?php foreach( $result as $row ) { ?>
+                <tr>   <td> <a href="./authorDisplay.php?nickname=<?php echo $row['nick']?>"><?php echo $row['nick'];?>
+                    </a>   </td>
+                    <td><?php echo $row['hodnoceni'] ?></td></tr>
+                <?php } ?>
+
+            </table>
         </div>
     </div>
 </main>

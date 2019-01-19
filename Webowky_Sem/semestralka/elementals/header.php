@@ -11,6 +11,7 @@ session_start();
     <meta charset="UTF-8">
 
     <link rel="stylesheet" type="text/css" href="../css/test1.css">
+    <link rel="stylesheet" type="text/css" href="../css/test2.css">
     <body>
 
 
