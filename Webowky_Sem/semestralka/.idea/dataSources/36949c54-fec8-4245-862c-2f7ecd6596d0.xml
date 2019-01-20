@@ -971,452 +971,424 @@
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
     <table id="244" parent="7" name="autor"/>
-    <table id="245" parent="7" name="genre"/>
-    <table id="246" parent="7" name="review"/>
-    <table id="247" parent="7" name="story"/>
-    <table id="248" parent="7" name="stranka"/>
-    <table id="249" parent="7" name="tag"/>
-    <table id="250" parent="7" name="tagstory"/>
-    <table id="251" parent="7" name="uzivatel"/>
-    <table id="252" parent="7" name="zprava"/>
-    <column id="253" parent="244" name="idAutor">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="254" parent="244" name="nick">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="255" parent="244" name="hodnoceni">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="256" parent="244" name="info">
-      <Position>4</Position>
-      <DataType>varchar(1000)|0s</DataType>
-      <DefaultExpression>&apos;O tomto autorovi moc nevíme&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="257" parent="244" name="approved">
-      <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="258" parent="244" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idAutor</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="259" parent="245" name="idGenre">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="260" parent="245" name="genreName">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="261" parent="245" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idGenre</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="262" parent="246" name="idReview">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="263" parent="246" name="fkStoryid">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="264" parent="246" name="fkAutorid">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="265" parent="246" name="content">
-      <Position>4</Position>
-      <DataType>varchar(1000)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="266" parent="246" name="fkUzivatelid">
-      <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="267" parent="246" name="timeCreated">
-      <Position>6</Position>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="268" parent="246" name="timeEdited">
-      <Position>7</Position>
-      <DataType>datetime|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="269" parent="246" name="fk_Review_Story">
-      <ColNames>fkStoryid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="270" parent="246" name="fk_Review_Autor">
-      <ColNames>fkAutorid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="271" parent="246" name="fk_Review_Uzivatel">
-      <ColNames>fkUzivatelid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="272" parent="246" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idReview</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="273" parent="246" name="fk_Review_Story">
-      <ColNames>fkStoryid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>story</RefTableName>
-      <RefColNames>idStory</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="274" parent="246" name="fk_Review_Autor">
-      <ColNames>fkAutorid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>autor</RefTableName>
-      <RefColNames>idAutor</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="275" parent="246" name="fk_Review_Uzivatel">
-      <ColNames>fkUzivatelid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>uzivatel</RefTableName>
-      <RefColNames>idUzivatel</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="276" parent="247" name="idStory">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="277" parent="247" name="storyName">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="278" parent="247" name="storySummary">
-      <Position>3</Position>
-      <DataType>varchar(1000)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="279" parent="247" name="hodnoceni">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="280" parent="247" name="fk_Autorid">
-      <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="281" parent="247" name="fk_Genreid">
-      <Position>6</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="282" parent="247" name="approved">
-      <Position>7</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <DefaultExpression>&apos;0&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="283" parent="247" name="Storycol">
-      <Position>8</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="284" parent="247" name="fk_Story_Autor">
-      <ColNames>fk_Autorid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="285" parent="247" name="fk_Story_Genre">
-      <ColNames>fk_Genreid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="286" parent="247" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idStory</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="287" parent="247" name="fk_Story_Autor">
-      <ColNames>fk_Autorid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>autor</RefTableName>
-      <RefColNames>idAutor</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="288" parent="247" name="fk_Story_Genre">
-      <ColNames>fk_Genreid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>genre</RefTableName>
-      <RefColNames>idGenre</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="289" parent="248" name="id_Stranka">
+    <table id="245" parent="7" name="review"/>
+    <table id="246" parent="7" name="story"/>
+    <table id="247" parent="7" name="stranka"/>
+    <table id="248" parent="7" name="tag"/>
+    <table id="249" parent="7" name="tagstory"/>
+    <table id="250" parent="7" name="uzivatel"/>
+    <table id="251" parent="7" name="zprava"/>
+    <column id="252" parent="244" name="idAutor">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="248" name="link">
+    <column id="253" parent="244" name="nick">
       <Position>2</Position>
-      <DataType>varchar(300)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="291" parent="248" name="jmeno">
-      <Position>3</Position>
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="248" name="popisek">
-      <Position>4</Position>
-      <DataType>varchar(1000)|0s</DataType>
-      <DefaultExpression>&apos;O této stránce nic nevíme&apos;</DefaultExpression>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="293" parent="248" name="hodnoceni">
-      <Position>5</Position>
+    <column id="254" parent="244" name="hodnoceni">
+      <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="294" parent="248" name="fkAutorid">
-      <Position>6</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="295" parent="248" name="fkStoryid">
-      <Position>7</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="296" parent="248" name="fk_Stranka_Autor">
-      <ColNames>fkAutorid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="297" parent="248" name="fk_Stranka_Story">
-      <ColNames>fkStoryid</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="298" parent="248" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>id_Stranka</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="299" parent="248" name="fk_Stranka_Autor">
-      <ColNames>fkAutorid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>autor</RefTableName>
-      <RefColNames>idAutor</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="300" parent="248" name="fk_Stranka_Story">
-      <ColNames>fkStoryid</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>story</RefTableName>
-      <RefColNames>idStory</RefColNames>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="301" parent="249" name="idTag">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="302" parent="249" name="tagName">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="303" parent="249" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idTag</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="304" parent="250" name="idTagStory">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="305" parent="250" name="fkStory">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="306" parent="250" name="fkTag">
-      <Position>3</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="307" parent="250" name="fk_TagStory_Story">
-      <ColNames>fkStory</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="308" parent="250" name="fk_TagStory_Tag">
-      <ColNames>fkTag</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="309" parent="250" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>idTagStory</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="310" parent="250" name="fk_TagStory_Story">
-      <ColNames>fkStory</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>story</RefTableName>
-      <RefColNames>idStory</RefColNames>
-    </foreign-key>
-    <foreign-key id="311" parent="250" name="fk_TagStory_Tag">
-      <ColNames>fkTag</ColNames>
-      <RefSchemaName>sem_databaze</RefSchemaName>
-      <RefTableName>tag</RefTableName>
-      <RefColNames>idTag</RefColNames>
-    </foreign-key>
-    <column id="312" parent="251" name="idUzivatel">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="313" parent="251" name="userNick">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="314" parent="251" name="userPassword">
-      <Position>3</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="315" parent="251" name="userMail">
+    <column id="255" parent="244" name="info">
       <Position>4</Position>
-      <DataType>varchar(200)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="316" parent="251" name="role">
-      <Position>5</Position>
-      <DataType>varchar(100)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="317" parent="251" name="Info">
-      <Position>6</Position>
       <DataType>varchar(1000)|0s</DataType>
+      <DefaultExpression>&apos;O tomto autorovi moc nevíme&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="318" parent="251" name="PRIMARY">
+    <column id="256" parent="244" name="approved">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="257" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>idUzivatel</ColNames>
+      <ColNames>idAutor</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="319" parent="252" name="idZprava">
+    <column id="258" parent="245" name="idReview">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="320" parent="252" name="Content">
+    <column id="259" parent="245" name="fkStoryid">
       <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="260" parent="245" name="fkAutorid">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="261" parent="245" name="content">
+      <Position>4</Position>
       <DataType>varchar(1000)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="321" parent="252" name="Title">
-      <Position>3</Position>
-      <DataType>varchar(100)|0s</DataType>
+    <column id="262" parent="245" name="fkUzivatelid">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="322" parent="252" name="Sender">
-      <Position>4</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="323" parent="252" name="Recipient">
-      <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="324" parent="252" name="Sendtime">
+    <column id="263" parent="245" name="timeCreated">
       <Position>6</Position>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="252" name="read">
+    <column id="264" parent="245" name="timeEdited">
+      <Position>7</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="265" parent="245" name="fk_Review_Story">
+      <ColNames>fkStoryid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="266" parent="245" name="fk_Review_Autor">
+      <ColNames>fkAutorid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="267" parent="245" name="fk_Review_Uzivatel">
+      <ColNames>fkUzivatelid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="268" parent="245" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idReview</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="269" parent="245" name="fk_Review_Story">
+      <ColNames>fkStoryid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>story</RefTableName>
+      <RefColNames>idStory</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="270" parent="245" name="fk_Review_Autor">
+      <ColNames>fkAutorid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>autor</RefTableName>
+      <RefColNames>idAutor</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="271" parent="245" name="fk_Review_Uzivatel">
+      <ColNames>fkUzivatelid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>uzivatel</RefTableName>
+      <RefColNames>idUzivatel</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="272" parent="246" name="idStory">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="273" parent="246" name="storyName">
+      <Position>2</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="274" parent="246" name="storySummary">
+      <Position>3</Position>
+      <DataType>varchar(1000)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="275" parent="246" name="hodnoceni">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="276" parent="246" name="fk_Autorid">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="277" parent="246" name="approved">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="278" parent="246" name="Storycol">
+      <Position>7</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="279" parent="246" name="fk_Story_Autor">
+      <ColNames>fk_Autorid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="280" parent="246" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idStory</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="281" parent="246" name="fk_Story_Autor">
+      <ColNames>fk_Autorid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>autor</RefTableName>
+      <RefColNames>idAutor</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="282" parent="247" name="id_Stranka">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="283" parent="247" name="link">
+      <Position>2</Position>
+      <DataType>varchar(300)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="284" parent="247" name="jmeno">
+      <Position>3</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="285" parent="247" name="popisek">
+      <Position>4</Position>
+      <DataType>varchar(1000)|0s</DataType>
+      <DefaultExpression>&apos;O této stránce nic nevíme&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="286" parent="247" name="hodnoceni">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="287" parent="247" name="fkAutorid">
+      <Position>6</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="288" parent="247" name="fkStoryid">
+      <Position>7</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="289" parent="247" name="fk_Stranka_Autor">
+      <ColNames>fkAutorid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="290" parent="247" name="fk_Stranka_Story">
+      <ColNames>fkStoryid</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="291" parent="247" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id_Stranka</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="292" parent="247" name="fk_Stranka_Autor">
+      <ColNames>fkAutorid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>autor</RefTableName>
+      <RefColNames>idAutor</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="293" parent="247" name="fk_Stranka_Story">
+      <ColNames>fkStoryid</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>story</RefTableName>
+      <RefColNames>idStory</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="294" parent="248" name="idTag">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="295" parent="248" name="tagName">
+      <Position>2</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="296" parent="248" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idTag</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="297" parent="249" name="idTagStory">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="298" parent="249" name="fkStory">
+      <Position>2</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="299" parent="249" name="fkTag">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="300" parent="249" name="fk_TagStory_Story">
+      <ColNames>fkStory</ColNames>
+      <Type>btree</Type>
+    </index>
+    <index id="301" parent="249" name="fk_TagStory_Tag">
+      <ColNames>fkTag</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="302" parent="249" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idTagStory</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="303" parent="249" name="fk_TagStory_Story">
+      <ColNames>fkStory</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>story</RefTableName>
+      <RefColNames>idStory</RefColNames>
+    </foreign-key>
+    <foreign-key id="304" parent="249" name="fk_TagStory_Tag">
+      <ColNames>fkTag</ColNames>
+      <RefSchemaName>sem_databaze</RefSchemaName>
+      <RefTableName>tag</RefTableName>
+      <RefColNames>idTag</RefColNames>
+    </foreign-key>
+    <column id="305" parent="250" name="idUzivatel">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="306" parent="250" name="userNick">
+      <Position>2</Position>
+      <DataType>varchar(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="307" parent="250" name="userPassword">
+      <Position>3</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="308" parent="250" name="userMail">
+      <Position>4</Position>
+      <DataType>varchar(200)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="309" parent="250" name="role">
+      <Position>5</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="310" parent="250" name="Info">
+      <Position>6</Position>
+      <DataType>varchar(1000)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="311" parent="250" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>idUzivatel</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="312" parent="251" name="idZprava">
+      <Position>1</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="313" parent="251" name="Content">
+      <Position>2</Position>
+      <DataType>varchar(1000)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="314" parent="251" name="Title">
+      <Position>3</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="315" parent="251" name="Sender">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="316" parent="251" name="Recipient">
+      <Position>5</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="317" parent="251" name="Sendtime">
+      <Position>6</Position>
+      <DataType>datetime|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="318" parent="251" name="read">
       <Position>7</Position>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="326" parent="252" name="fk_Sender">
+    <index id="319" parent="251" name="fk_Sender">
       <ColNames>Sender</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="327" parent="252" name="fk_Recipient">
+    <index id="320" parent="251" name="fk_Recipient">
       <ColNames>Recipient</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="328" parent="252" name="PRIMARY">
+    <key id="321" parent="251" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>idZprava</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="329" parent="252" name="fk_Sender">
+    <foreign-key id="322" parent="251" name="fk_Sender">
       <ColNames>Sender</ColNames>
       <RefSchemaName>sem_databaze</RefSchemaName>
       <RefTableName>uzivatel</RefTableName>
       <RefColNames>idUzivatel</RefColNames>
     </foreign-key>
-    <foreign-key id="330" parent="252" name="fk_Recipient">
+    <foreign-key id="323" parent="251" name="fk_Recipient">
       <ColNames>Recipient</ColNames>
       <RefSchemaName>sem_databaze</RefSchemaName>
       <RefTableName>uzivatel</RefTableName>

@@ -6,12 +6,17 @@ include 'elementals/header.php';
 
         <div class="center-wrapper">
             <div>
-                <h1 align="center"><?php echo $_GET['nickname'] ?></h1>
+                <?php if (empty($_GET['nickname']) == false){ ?>
+                <h1 align="center"><?php
+                    echo $_GET['nickname']?></h1>
                 <h2>List of sites</h2>
                 <h2>List of fics</h2>
                 <h2>Assorted tags</h2>
                 <h2>Reviews</h2>
+                <?php } else{?>
+                    <h1 align="center">You are not supposed to be here</h1>
 
+                <?php }?>
             </div>
         </div>
     </main>

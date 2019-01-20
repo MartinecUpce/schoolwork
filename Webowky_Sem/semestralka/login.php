@@ -12,7 +12,7 @@ include 'elementals/header.php';
 
 <?php
 
-include 'config.php';
+//include 'config.php';
 include 'Connection.php';
 
 if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPassword"])) {
@@ -21,7 +21,7 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
     $conn = Connection::getPdoInstance();//new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
    // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //get user by email and password
-    $stmt = $conn->prepare("SELECT idUzivatel, userNick, userMail FROM uzivatel 
+    $stmt = $conn->prepare("SELECT idUzivatel, userNick, userMail,role FROM uzivatel 
                                       WHERE userMail= :email and userPassword = :password");
     $stmt->bindParam(':email', $_POST["loginMail"]);
     $stmt->bindParam(':password', $_POST["loginPassword"]);
@@ -34,7 +34,8 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
         $_SESSION["user_id"] = $uzivatel["idUzivatel"];
         $_SESSION["username"] = $uzivatel["userNick"];
         $_SESSION["email"] = $uzivatel["userMail"];
-        $_SESSION["logged"] = "true";
+        $_SESSION["jeAdmin"] = $uzivatel["userMail"];
+        $_SESSION["logged"] = $uzivatel["role"];
         header("Location:" . "about2.php");
     }
 
