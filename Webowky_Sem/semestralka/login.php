@@ -52,7 +52,7 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
     <link rel="stylesheet" type="text/css" href="../css/test2.css">
     <div class="center-wrapper">
         <div>
-            <h2>Login formula</h2>
+            <h2>Login</h2>
             <p>
             <form method="post">
 

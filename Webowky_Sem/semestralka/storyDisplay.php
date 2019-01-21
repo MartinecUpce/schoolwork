@@ -130,10 +130,14 @@ include 'Connection.php';
                                  $stmt = $conn->prepare("insert into review (fkStoryid,content,hodnoceni,fkUzivatelid)values('$id',:review,'$choice','$uz')");
                                  $stmt->bindParam(':review',$_POST["reviewArea"]);
                                  $stmt->execute();
-
+                                 echo $id;
+                                $stmt = $conn->prepare("select AVG(review.hodnoceni) from review where review.fkStoryid = $id ");
+                                $stmt->execute();
+                                $sum = $stmt->fetchColumn();
+                                $stmt = $conn->prepare("update story set story.hodnoceni = $sum where idStory = $id");
                                  echo "<script type='text/javascript'>window.location.href = 'storyDisplay.php?storyId=$idSt';</script>";
                              }catch(PDOException $ex){
-                               // echo $ex;
+                                echo $ex;
                                  echo "<script type='text/javascript'>alert('You cannot post two reviews for the same story');</script>";
                              }
 

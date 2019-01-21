@@ -5,65 +5,18 @@
  * Date: 07/01/2019
  * Time: 18:17
  */
-
-function func()
-{
-    $pdo = Connection::getPdoInstance();
-    $stmt = $pdo->prepare("SELECT * FROM story");
-   $stmt->execute();
-    $result = $stmt -> fetchAll();
-
-    ?>
-    <table>
-        <tr>
-            <th>Name of story</th>
-            <th>Rating</th>
-            <th>Brief Summary(if present)</th>
-    <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == "admin") { ?>
-            <th> Deletion </th>
-    <?php }?>
-        </tr>
-
-        <?php foreach( $result as $row ) {
-            if($row['approved'] !=0){
-                ?>
-
-                <tr>
-                    <td> <a href="./storyDisplay.php?storyId=<?php echo $row['idStory']?>">
-                            <?php echo $row['storyName']?>
-                        </a>   </td>
-                    <td><?php echo $row['hodnoceni'] ?></td>
-                    <td><?php
-                        $str = $row['storySummary'] ;
-                        echo wordwrap($str,50,"<br>\n");
-                        //echo $row['storySummary']
-                        ?></td>
-                <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == 'admin') { ?>
-                    <td><a href="delet.php?delid=<?php echo $row['idStory']?>&tablaName=story">Deletion</a></td>
-                <?php }?>
-                    </tr>
-
-            <?php } } ?>
-    </table>
-    <?php
-}
-
-
-
-
+/*if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}*/
 
 include 'elementals/header.php';
-//include 'Connection.php';
-include 'delet.php'
-
-/*$pdo = Connection::getPdoInstance();
-$stmt = $pdo->prepare("SELECT * FROM story");
-$stmt->execute();
-$result = $stmt -> fetchAll();*/
-
-
-
-
+if(!empty($_SESSION)){
+    include 'delet.php';
+}
+else{
+    include 'Connection.php';
+}
+//include 'delet.php';
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
@@ -123,13 +76,14 @@ $result = $stmt -> fetchAll();*/
                         <th>Name of story</th>
                         <th>Rating</th>
                         <th>Brief Summary(if present)</th>
-                        <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == 'admin') { ?>
+                        <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                             <th>Deletion</th>
                         <?php }?>
 
                     </tr>
 
                     <?php foreach( $result2 as $row2 ) {
+                        func2($row2["idStory"]);
                         if($row2['approved'] !=0){
                             ?>
 
@@ -143,7 +97,7 @@ $result = $stmt -> fetchAll();*/
                                     echo wordwrap($str,50,"<br>\n");
                                     //echo $row2['storySummary']
                                     ?></td>
-                                <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == 'admin') { ?>
+                                <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                                     <td><a href="delet.php?delid=<?php echo $row2['idStory']?>&tablaName=story">Deletion</a></td>
                                 <?php }?>
                             </tr>
@@ -152,7 +106,8 @@ $result = $stmt -> fetchAll();*/
                 </table><?php
                 }
 
-                else{func();
+                else{
+                    func();
                 }
 
 
@@ -168,7 +123,109 @@ $result = $stmt -> fetchAll();*/
     </main>
 <?php
 include 'elementals/footer.html';
+function func2($param){
+    $pdo = Connection::getPdoInstance();
+
+    $stmt = $pdo->prepare("Select IFNULL(AVG(hodnoceni),0) from review where fkStoryid = $param");
+    $stmt->execute();
+    $res = $stmt->fetchColumn();
+
+    $stmt = $pdo->prepare("Update story set hodnoceni =$res where idStory = $param");
+    $stmt->execute();
+}
+function func()
+{
+    $pdo = Connection::getPdoInstance();
+    $stmt = $pdo->prepare("SELECT * FROM story");
+    $stmt->execute();
+    $result = $stmt -> fetchAll();
+    ?>
+    <table>
+        <tr>
+            <th>Name of story</th>
+            <th>Rating</th>
+            <th>Brief Summary(if present)</th>
+            <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == "admin")) { ?>
+                <th> Deletion </th>
+            <?php }?>
+        </tr>
+
+        <?php foreach( $result as $row ) {
+            func2($row['idStory']);
+            if($row['approved'] !=0){
+
+                ?>
+
+                <tr>
+                    <td> <a href="./storyDisplay.php?storyId=<?php echo $row['idStory']?>">
+                            <?php echo $row['storyName']?>
+                        </a>   </td>
+                    <td><?php echo $row['hodnoceni'] ?></td>
+                    <td><?php
+                        $str = $row['storySummary'] ;
+                        echo wordwrap($str,50,"<br>\n");
+                        //echo $row['storySummary']
+                        ?></td>
+                    <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
+                        <td><a href="delet.php?delid=<?php echo $row['idStory']?>&tablaName=story">Deletion</a></td>
+                    <?php }?>
+                </tr>
+
+            <?php } } ?>
+    </table>
+    <?php
+}
+function func1()
+{
+    $pdo = Connection::getPdoInstance();
+    $stmt = $pdo->prepare("SELECT * FROM story");
+    $stmt->execute();
+    $result = $stmt -> fetchAll();
+    ?>
+    <table>
+        <tr>
+            <th>Name of story</th>
+            <th>Rating</th>
+            <th>Brief Summary(if present)</th>
+
+        </tr>
+
+        <?php foreach( $result as $row ) {
+            func2($row['idStory']);
+            if($row['approved'] !=0){
+
+                ?>
+
+                <tr>
+                    <td> <a href="./storyDisplay.php?storyId=<?php echo $row['idStory']?>">
+                            <?php echo $row['storyName']?>
+                        </a>   </td>
+                    <td><?php echo $row['hodnoceni'] ?></td>
+                    <td><?php
+                        $str = $row['storySummary'] ;
+                        echo wordwrap($str,50,"<br>\n");
+                        //echo $row['storySummary']
+                        ?></td>
+
+                </tr>
+
+            <?php } } ?>
+    </table>
+    <?php
+}
+
+
+
+
+
+/*$pdo = Connection::getPdoInstance();
+$stmt = $pdo->prepare("SELECT * FROM story");
+$stmt->execute();
+$result = $stmt -> fetchAll();*/
+
 
 
 
 ?>
+
+

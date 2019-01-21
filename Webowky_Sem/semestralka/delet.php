@@ -1,8 +1,14 @@
 
 <?php
-/*if(empty($_SESSION) or !isset($_SESSION)){
+
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
-}*/
+}
+if(empty($_SESSION) or !isset($_SESSION)){
+    header("location:" . "stories.php");
+    exit();
+
+}
 
 /**
  * Created by PhpStorm.
