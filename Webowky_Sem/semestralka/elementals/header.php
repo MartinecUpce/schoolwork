@@ -25,7 +25,7 @@ session_start();
         <a href="stories.php">Stories</a>
 
             <?php if (!empty($_SESSION["user_id"])) { ?>
-                <a href="users.php">User</a>
+                <a href="userPage.php">User</a>
                 <a href="logout.php">Logout</a>
             <?php } else { ?>
                 <a href="login.php">Login</a>

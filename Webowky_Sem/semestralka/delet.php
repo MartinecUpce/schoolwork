@@ -1,5 +1,9 @@
 
 <?php
+/*if(empty($_SESSION) or !isset($_SESSION)){
+    session_start();
+}*/
+
 /**
  * Created by PhpStorm.
  * User: Vojta
@@ -19,6 +23,10 @@ if( isset($_GET['delid']) and isset($_GET['tablaName']) and $_SESSION["logged"] 
     $id = $_GET['delid'];
     echo $tbl;
     echo $id;
+    $stmt = $conn->prepare("DELETE FROM tagstory WHERE fkStory = $id");
+    $stmt->execute();
+    $stmt = $conn->prepare("DELETE FROM linkstorystra WHERE idStor = $id");
+    $stmt->execute();
     $stmt = $conn->prepare("DELETE FROM $tbl WHERE idStory = $id");
     $stmt->execute();
     header("location:" . "stories.php");

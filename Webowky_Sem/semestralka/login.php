@@ -71,5 +71,8 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
 
 
 <?php
+/*password_verify($_POST['loginPassword'], $user['heslo']);
+na přihlášení
+$newPass = password_hash($_POST["psw"], PASSWORD_BCRYPT);*/
 include 'elementals/footer.html';
 ?>

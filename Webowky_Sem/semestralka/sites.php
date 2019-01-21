@@ -1,13 +1,8 @@
 <?php
 include 'elementals/header.php';
-$username = 'Rando';
-$password = 'rando';
-$host = 'localhost';
-$dbname = 'sem_databaze';
+include 'Connection.php';
 
-$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+$pdo = Connection::getPdoInstance();
 $stmt = $pdo->prepare("SELECT * FROM stranka");
 $stmt->execute();
 $result = $stmt -> fetchAll();
