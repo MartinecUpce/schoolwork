@@ -26,14 +26,33 @@ $result = $stmt -> fetchAll();
                 <tr>
                     <th>Nick</th>
                     <th>Rating</th>
+                    <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
+                        <th>Deletion</th>
+                    <?php }?>
 
                 </tr>
 
                 <?php foreach( $result as $row ) { ?>
-                <tr>   <td> <a href="./authorDisplay.php?nickname=<?php echo $row['nick']?>"><?php echo $row['nick'];?>
+                <tr>   <td> <a href="./authorDisplay.php?idAutoria=<?php echo $row['idAutor']?>"><?php echo $row['nick'];?>
                     </a>   </td>
-                    <td><?php echo $row['hodnoceni'] ?></td></tr>
-                <?php } ?>
+                    <td><?php echo $row['hodnoceni'] ?></td>
+                    <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
+                        <td><form action= "" method="post">
+                                <input type="hidden" name="id_story" value="<?= $row['idAutor'] ?>" />
+
+                                <input type="submit" name="deletion" value="Delete" />
+                            </form></td>
+                    <?php }?>
+                </tr>
+                <?php }
+                if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+                    $relevantId = $_POST["idAutor"];
+                    DeleteStory::deleteAutor($relevantId);
+                }
+
+
+
+                ?>
 
             </table>
         </div>

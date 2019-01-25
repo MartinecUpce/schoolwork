@@ -6,7 +6,7 @@ include 'elementals/header.php';
 
         <div class="center-wrapper">
             <div>
-                <?php if (empty($_GET['nickname']) == false){ ?>
+                <?php if (empty($_GET['idAutoria']) == false){ ?>
                 <h1 align="center"><?php
                     echo $_GET['nickname']?></h1>
                 <h2>List of sites</h2>

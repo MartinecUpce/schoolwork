@@ -24,8 +24,7 @@
     }
 
     #hero {
-        width: 100%;
-        height: auto;
+        display:none;
     }
 
     .full-width-wrapper, main {
@@ -37,5 +36,17 @@
         width: 100%;
         margin: 25px;
     }
+    table {
+        justify-content: space-between;
+        border-collapse: collapse;
+        width: auto;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+
 }
 

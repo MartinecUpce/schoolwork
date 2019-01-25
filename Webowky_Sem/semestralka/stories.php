@@ -11,11 +11,14 @@
 
 include 'elementals/header.php';
 if(!empty($_SESSION)){
-    include 'delet.php';
+    //include 'delet.php';
+    include 'DeleteStory.php';
+
 }
 else{
     include 'Connection.php';
 }
+$relevantId;
 //include 'delet.php';
 ?>
     <main>
@@ -54,7 +57,6 @@ else{
                 <input type="submit" name="sort" value="Sort"/>
                     <input type="submit" name="unsort" value="Unsort" />
                 </form>
-
                 <?php
 
                 //taken from StackOverflow
@@ -62,7 +64,7 @@ else{
     {
         func();
     }
-              else if(isset($_POST['select_tag']) and isset($_POST['sort'])){
+    else if(isset($_POST['select_tag']) and isset($_POST['sort'])){
                 $choice= $_POST['select_tag'];
                 $pdo1 = Connection::getPdoInstance();
                 //$stmt = $pdo->prepare("SELECT * FROM story");
@@ -98,17 +100,27 @@ else{
                                     //echo $row2['storySummary']
                                     ?></td>
                                 <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
-                                    <td><a href="delet.php?delid=<?php echo $row2['idStory']?>&tablaName=story">Deletion</a></td>
+                                    <td><form action= "" method="post">
+                                            <input type="hidden" name="id_story" value="<?= $row2['idStory'] ?>" />
+
+                                            <input type="submit" name="deletion" value="Delete" />
+                                        </form>
+
+                                    </td>
+
                                 <?php }?>
                             </tr>
 
                         <?php } } ?>
                 </table><?php
-                }
-
-                else{
-                    func();
-                }
+        }
+         else{
+             func();
+             }
+         if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+             $relevantId = $_POST["id_story"];
+                    DeleteStory::deleteStory($relevantId);
+         }
 
 
 
@@ -167,11 +179,23 @@ function func()
                         //echo $row['storySummary']
                         ?></td>
                     <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
-                        <td><a href="delet.php?delid=<?php echo $row['idStory']?>&tablaName=story">Deletion</a></td>
+                        <td>
+                            <form action= "" method="post">
+                                <input type="hidden" name="id_story" value="<?= $row['idStory'] ?>" />
+                                <input type="submit" name="deletion" value="Delete" />
+                            </form>
+                            <?php
+
+                            ?>
+                            </td>
                     <?php }?>
                 </tr>
 
-            <?php } } ?>
+            <?php } }
+        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+            $someId = $_POST['id_story'];
+            DeleteStory::deleteStory($someId);//($row['idStory']);
+        }?>
     </table>
     <?php
 }
@@ -221,7 +245,10 @@ function func1()
 /*$pdo = Connection::getPdoInstance();
 $stmt = $pdo->prepare("SELECT * FROM story");
 $stmt->execute();
-$result = $stmt -> fetchAll();*/
+$result = $stmt -> fetchAll();
+
+<a href="delet.php?delid=<?php echo $row['idStory']?>&tablaName=story">Deletion</a>
+*/
 
 
 

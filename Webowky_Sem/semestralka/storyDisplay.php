@@ -120,6 +120,8 @@ include 'Connection.php';
 
 
 
+
+
                              try{
                                  $choice = $_POST["select_hodnoceni"];
                                  $review = $_POST["reviewArea"];

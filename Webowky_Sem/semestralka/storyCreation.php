@@ -65,14 +65,16 @@ include 'Connection.php'
                         foreach($result1 as $row1) { if (c== 0){?>
 
                             <option value="<?=$row1["idAutor"];?>",selected = "selected"><?=$row1["nick"];?></option>
-                            <?php  $c =1;}else{
+                            <?php  $c =1;}
+
+                            else{
                             ?>
 
                             <option value="<?=$row1["idAutor"];?>"><?=$row1["nick"];?></option>
                             <?php
 
                         }
-                        }
+                    }
                         ?>
                     </select><br>
 
@@ -138,8 +140,7 @@ include 'Connection.php'
                         $choice3 = $_POST['select_create_site'];
                         $conn = Connection::getPdoInstance();
     try{
-                        $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary,
-        $choice2,1)");
+                        $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary, $choice2,1)");
                         $stmt1->bindParam(':name', $_POST["name"]);
                         $stmt1->bindParam(':summary', $_POST["summary"]);
                         $result1 = $stmt1->execute();
@@ -153,6 +154,7 @@ include 'Connection.php'
                         $stmt1 = $conn->prepare("insert into tagstory (fkStory,fkTag) values ('$last_id','$choice1')");
                         $stmt1->execute();
                         //func();
+
                         echo "<script type='text/javascript'>window.location.href = 'stories.php';</script>";} catch(PDOException $ex){
         echo "<script type='text/javascript'>alert('Story like that already exists');</script>";
     }
