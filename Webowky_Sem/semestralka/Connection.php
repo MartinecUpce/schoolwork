@@ -6,7 +6,7 @@
  * Time: 18:20
  * copied from exercises IWWW
  */
-include 'config.php';
+include_once 'config.php';
 class Connection
 {
 

@@ -24,6 +24,18 @@ class DeleteStory
         header("location:" . "stories.php");
     }
 
+    static function deleteStoryInner($paramId) : void
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("DELETE FROM tagstory WHERE fkStory = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM linkstorystra WHERE idStor = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM story WHERE idStory = $paramId");
+        $stmt->execute();
+
+    }
+
     static function deleteReview($paramIdUser, $paramIdVar, $var) : void
     {
         $conn = Connection::getPdoInstance();
@@ -42,19 +54,50 @@ class DeleteStory
 
 
     }
+    static function deleteReview2($var,$paramIdVar,$var1) : void
+    {
+        $conn = Connection::getPdoInstance();
+        if($var1 == "story"){
+            $stmt = $conn->prepare("DELETE FROM review WHERE idReview = $var");
+            $stmt->execute();
+            //nickname=<?php echo $row['nick']
+            header("location:" . "storyDisplay.php?storyId=$paramIdVar");
+        }
+        else{
+            $stmt = $conn->prepare("DELETE FROM review WHERE idReview = $var");
+            $stmt->execute();
+            header("location:" . "authorDisplay.php?idAutoria=$paramIdVar");
+        }
+
+
+
+    }
 
     static function deleteAutor($paramId) : void
     {
         $conn = Connection::getPdoInstance();
         $stmt = $conn->prepare("SELECT idStory from story where fk_Autorid = $paramId");
         $stmt->execute();
-        $resStory = $stmt->fetchColumn();
-        foreach($resStory as $res ){
-            self::deleteStory($res["idStory"]);
+        $resStory = $stmt->fetchAll();
+
+       foreach($resStory as $res ){
+           $idTemp = $res["idStory"];
+           $conn = Connection::getPdoInstance();
+           $stmt = $conn->prepare("DELETE FROM tagstory WHERE fkStory = $idTemp");
+           $stmt->execute();
+
+           $stmt = $conn->prepare("DELETE FROM linkstorystra WHERE idStor = $idTemp");
+           $stmt->execute();
+           $stmt = $conn->prepare("DELETE FROM story WHERE idStory = $idTemp");
+           $stmt->execute();
+
+
     }
         $stmt = $conn->prepare("delete from linkautstr where idAutora = $paramId");
         $stmt->execute();
         $stmt = $conn->prepare("DELETE FROM review WHERE fkAutorid = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("Delete from autor where idAutor = $paramId ");
         $stmt->execute();
         header("location:" . "authors.php");
     }

@@ -7,8 +7,11 @@
  */
 ob_start();
 include 'elementals/header.php';
-include 'Connection.php'
-
+include 'Connection.php';
+if(empty($_SESSION["user_id"])) {
+    header("location:" ."about2.php");
+    exit();
+}
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">

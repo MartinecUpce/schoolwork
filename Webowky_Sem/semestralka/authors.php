@@ -7,7 +7,8 @@
  */
 session_start();
 include('elementals/header.php');
-include("Connection.php");
+//include("Connection.php");
+include("DeleteStory.php");
 $pdo = Connection::getPdoInstance();
 $stmt = $pdo->prepare("SELECT * FROM autor");
 $stmt->execute();
@@ -38,7 +39,7 @@ $result = $stmt -> fetchAll();
                     <td><?php echo $row['hodnoceni'] ?></td>
                     <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                         <td><form action= "" method="post">
-                                <input type="hidden" name="id_story" value="<?= $row['idAutor'] ?>" />
+                                <input type="hidden" name="id_autor" value="<?= $row['idAutor'] ?>" />
 
                                 <input type="submit" name="deletion" value="Delete" />
                             </form></td>
@@ -46,7 +47,7 @@ $result = $stmt -> fetchAll();
                 </tr>
                 <?php }
                 if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
-                    $relevantId = $_POST["idAutor"];
+                    $relevantId = $_POST["id_autor"];
                     DeleteStory::deleteAutor($relevantId);
                 }
 
@@ -54,8 +55,12 @@ $result = $stmt -> fetchAll();
 
                 ?>
 
+
             </table>
         </div>
+        <?php if (!empty($_SESSION["user_id"])) {?>
+            <h2 align="center"><a href = "authorCreation.php">Submit new author</a></h2>
+        <?php } ?>
     </div>
 </main>
 <?php

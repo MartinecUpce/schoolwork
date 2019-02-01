@@ -22,12 +22,15 @@ $result = $stmt -> fetchAll();
 
                     </tr>
 
-                    <?php foreach( $result as $row ) { ?>
+                    <?php foreach( $result as $row ) {
+                        if($row["id_Stranka"] != 0){
+                        ?>
                         <tr>   <td> <a href="<?php echo $row['link']?>"><?php echo $row['jmeno'];?>
                                 </a>   </td>
                             <td><?php echo $row['hodnoceni'] ?></td>
                             <td><?php echo $row['popisek'] ?></td></tr>
-                    <?php } ?>
+                    <?php }
+                    } ?>
 
                 </table>
             </div>
