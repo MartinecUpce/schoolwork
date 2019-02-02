@@ -17,7 +17,7 @@ $result = $stmt -> fetchAll();
                 <table>
                     <tr>
                         <th>Name</th>
-                        <th>Rating</th>
+
                         <th>Brief Introduction</th>
 
                     </tr>
@@ -27,8 +27,11 @@ $result = $stmt -> fetchAll();
                         ?>
                         <tr>   <td> <a href="<?php echo $row['link']?>"><?php echo $row['jmeno'];?>
                                 </a>   </td>
-                            <td><?php echo $row['hodnoceni'] ?></td>
-                            <td><?php echo $row['popisek'] ?></td></tr>
+
+                            <td><?php echo
+                                $str = $row['popisek'] ;
+                                echo wordwrap($str,50,"<br>\n");
+                                 ?></td></tr>
                     <?php }
                     } ?>
 

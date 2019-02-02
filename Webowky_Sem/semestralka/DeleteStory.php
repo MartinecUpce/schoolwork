@@ -21,7 +21,7 @@ class DeleteStory
         $stmt->execute();
         $stmt = $conn->prepare("DELETE FROM story WHERE idStory = $paramId");
         $stmt->execute();
-        header("location:" . "stories.php");
+      //  header("location:" . "stories.php");
     }
 
     static function deleteStoryInner($paramId) : void
@@ -36,17 +36,36 @@ class DeleteStory
 
     }
 
+    static function updateHodnoceni($id,$table):void
+    {
+        if($table == "story") {
+            $conn = Connection::getPdoInstance();
+            $stmt = $conn->prepare("select IFNULL(AVG(review.hodnoceni ),0) from review where review.fkStoryid = $id ");
+            $stmt->execute();
+            $sum = $stmt->fetchColumn();
+            $stmt = $conn->prepare("update story set story.hodnoceni = $sum where idStory = $id");
+            $stmt->execute();
+        }else{
+            $conn = Connection::getPdoInstance();
+            $stmt = $conn->prepare("select IFNULL(AVG(review.hodnoceni),0) from review where review.fkAutorid = $id ");
+            $stmt->execute();
+            $sum = $stmt->fetchColumn();
+            $stmt = $conn->prepare("update autor set autor.hodnoceni = $sum where idAutor = $id");
+            $stmt->execute();
+        }
+    }
+
     static function deleteReview($paramIdUser, $paramIdVar, $var) : void
     {
         $conn = Connection::getPdoInstance();
         if($var == "story"){
-            $stmt = $conn->prepare("DELETE FROM review WHERE fkUzivatelid = $paramIdUser && fkStoryid = $paramIdVar");
+            $stmt = $conn->prepare("DELETE FROM review WHERE fkUzivatelid = $paramIdUser and fkStoryid = $paramIdVar");
             $stmt->execute();
             //nickname=<?php echo $row['nick']
             header("location:" . "stories.php?storyId=$paramIdVar");
         }
         else{
-            $stmt = $conn->prepare("DELETE FROM review WHERE fkUzivatelid = $paramIdUser && fkAutorid = $paramIdVar");
+            $stmt = $conn->prepare("DELETE FROM review WHERE fkUzivatelid = $paramIdUser and fkAutorid = $paramIdVar");
             $stmt->execute();
             header("location:" . "authors.php?idAutoria=$paramIdVar");
         }
@@ -61,11 +80,13 @@ class DeleteStory
             $stmt = $conn->prepare("DELETE FROM review WHERE idReview = $var");
             $stmt->execute();
             //nickname=<?php echo $row['nick']
+            self::updateHodnoceni($paramIdVar,$var1);
             header("location:" . "storyDisplay.php?storyId=$paramIdVar");
         }
         else{
             $stmt = $conn->prepare("DELETE FROM review WHERE idReview = $var");
             $stmt->execute();
+            self::updateHodnoceni($paramIdVar,$var1);
             header("location:" . "authorDisplay.php?idAutoria=$paramIdVar");
         }
 

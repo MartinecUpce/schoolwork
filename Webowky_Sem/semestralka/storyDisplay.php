@@ -6,22 +6,68 @@
  * Time: 19:12
  */
 include 'elementals/header.php';
-include 'Connection.php';
+include 'DeleteStory.php';
 
 
 
 
-?><link rel="stylesheet" type="text/css" href="css/test1.css">
+?>
+<link rel="stylesheet" type="text/css" href="css/test1.css">
 <link rel="stylesheet" type="text/css" href="../css/test2.css">
 <link rel="stylesheet" type="text/css" href="../css/forms.css">
+<?php
+if(empty($_GET["storyId"])){
+    header("Location:"."stories.php");
+    exit();
+}
+$id = $_GET['storyId'];
 
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+    $someId = $_POST['id_Review'];
+    $table = "story";
+    DeleteStory::deleteReview2($someId,$id,$table);
+}
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editing'])){
+    $someId = $_POST['id_Review'];
+    header("Location:"."editReview.php?idRev=$someId&table='story'");
+}
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["postReview"])) {
+
+    try{
+        $choice = $_POST["select_hodnoceni"];
+        $review = $_POST["reviewArea"];
+        $uz = $_SESSION["user_id"];
+        $conn = Connection::getPdoInstance();
+        $idSt = $_GET["storyId"];
+
+        $stmt = $conn->prepare("insert into review (fkStoryid,content,hodnoceni,fkUzivatelid)values('$id',:review,'$choice','$uz')");
+        $stmt->bindParam(':review',$_POST["reviewArea"]);
+        $stmt->execute();
+
+        $stmt = $conn->prepare("select AVG(1.0 * review.hodnoceni ) from review where review.fkStoryid = $id ");
+        $stmt->execute();
+        $sum = $stmt->fetchColumn();
+        $stmt = $conn->prepare("update story set story.hodnoceni = $sum where idStory = $id");
+        $stmt->execute();
+        // echo "<script type='text/javascript'>window.location.href = 'storyDisplay.php?storyId=$idSt';</script>";
+    }catch(PDOException $ex){
+        //  echo $ex;
+        echo "<script type='text/javascript'>alert('You cannot post two reviews for the same story');</script>";
+    }
+
+
+}
+
+?>
 <main>
 
     <div class="center-wrapper">
         <div>
-            <?php if (!empty($_GET['storyId'])){
+            <?php
                 $conn = Connection::getPdoInstance();
-                $id = $_GET['storyId'];
+
                 $stmt = $conn->prepare("Select * from story where idStory = $id");
                 $result = $stmt->execute();
                 $result = $stmt ->fetch();
@@ -62,39 +108,54 @@ include 'Connection.php';
                 ?>
 
                 <h2>Reviews</h2>
-            <table>
-                <tr>
-                    <th>User</th>
-                    <th>Review</th>
-                    <th>Date</th>
-                    <th>hodnoceni</th>
-                    <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == "admin") { ?>
-                        <th> Deletion </th>
-                    <?php }?>
 
-                </tr>
+
+                <div class="one">
                 <?php
-                $stmt = $conn->prepare("Select review.hodnoceni,review.idReview,review.content,u.userNick,review.timeCreated from story join review on story.idStory = review.fkStoryid join uzivatel u on review.fkUzivatelid = u.idUzivatel where idStory = $id");
+                $stmt = $conn->prepare("Select review.hodnoceni,review.idReview,review.content,u.userNick, u.idUzivatel,review.timeCreated,review.timeEdited from story join review on story.idStory = review.fkStoryid join uzivatel u on review.fkUzivatelid = u.idUzivatel where idStory = $id");
                 $stmt ->execute();
                 $result = $stmt->fetchAll();
-                foreach($result as $row){
-                    ?><tr>
-                    <td> <?php echo $row["userNick"]?></td>
-                    <td> <?php  $str = $row["content"] ;
-                        echo wordwrap($str,50,"<br>\n");?></td>
-                    <td> <?php echo $row["timeCreated"]?></td>
-                    <td><?php echo $row["hodnoceni"]?></td>
-                    <?php if (!empty($_SESSION["user_id"]) and $_SESSION["logged"] == 'admin') { ?>
-                        <td><a href="delet.php?delid=<?php echo $row['idReview']?>&tablaName=review">Deletion</a></td>
-                    <?php }?>
+                foreach($result as $row) {
+                    ?>
+                    <div class="two">
+                    <h3><?php echo $row["userNick"] ?></h3>
+                        <h4>Rated as <?php echo $row["hodnoceni"] ?> out of 5</h4>
+                    <p class="three"> <?php echo $row["content"] ?></p>
 
-                    </tr>
-                <?php }
+                  <p align="right">  <?php
+                    if (!empty($row["timeEdited"])) {
+                        echo $row["timeEdited"];
+                    } else {
+                        echo $row["timeCreated"];
+                    }
+
+                    if (!empty($_SESSION["user_id"]) and (($_SESSION["logged"] == 'admin') or ($row["idUzivatel"] == $_SESSION["user_id"]))) {
+                        ?>
+
+
+
+                        <form action="" method="post">
+                            <input type="hidden" name="id_Review" value="<?= $row['idReview'] ?>"/>
+                            <input align="right" type="submit" name="deletion" value="Delete"/>
+                            <?php
+                            if ($row["idUzivatel"] == $_SESSION["user_id"]) {
+                                ?>
+                                <input align="right" type="submit" name="editing" value="Edit"/>
+                                <?php
+                            }
+                            ?>
+                        </form>
+                        </p>
+                    <?php
+                    }?>
+                    </div>
+                    <?php
+                }
+                $review = "";
                 ?>
-            </table>
-            <?php
-                 if (!empty($_SESSION["user_id"]) ) {  $review = "";?>
+                </div>
 
+<br>
 <form action="" method="post">
 
 
@@ -111,47 +172,10 @@ include 'Connection.php';
     <input type="submit" name="postReview" value="post review"/>
 
 </form>
-<br>
-
-
-            <?php
-                     //
-                     if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["postReview"])) {
-
-
-
-
-
-                             try{
-                                 $choice = $_POST["select_hodnoceni"];
-                                 $review = $_POST["reviewArea"];
-                                 $uz = $_SESSION["user_id"];
-                                 $conn = Connection::getPdoInstance();
-                                 $idSt = $_GET["storyId"];
-
-                                 $stmt = $conn->prepare("insert into review (fkStoryid,content,hodnoceni,fkUzivatelid)values('$id',:review,'$choice','$uz')");
-                                 $stmt->bindParam(':review',$_POST["reviewArea"]);
-                                 $stmt->execute();
-                                 echo $id;
-                                $stmt = $conn->prepare("select AVG(review.hodnoceni) from review where review.fkStoryid = $id ");
-                                $stmt->execute();
-                                $sum = $stmt->fetchColumn();
-                                $stmt = $conn->prepare("update story set story.hodnoceni = $sum where idStory = $id");
-                                 echo "<script type='text/javascript'>window.location.href = 'storyDisplay.php?storyId=$idSt';</script>";
-                             }catch(PDOException $ex){
-                                echo $ex;
-                                 echo "<script type='text/javascript'>alert('You cannot post two reviews for the same story');</script>";
-                             }
-
-
-                     }
-
-            }
-            } else{?>
-                <h1 align="center">You are not supposed to be here</h1>
-
-            <?php }
-            ?>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
 </main>

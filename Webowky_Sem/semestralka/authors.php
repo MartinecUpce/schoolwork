@@ -13,7 +13,10 @@ $pdo = Connection::getPdoInstance();
 $stmt = $pdo->prepare("SELECT * FROM autor");
 $stmt->execute();
 $result = $stmt -> fetchAll();
-
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+    $relevantId = $_POST["id_autor"];
+    DeleteStory::deleteAutor($relevantId);
+}
 
 ?>
 <main>
@@ -42,14 +45,12 @@ $result = $stmt -> fetchAll();
                                 <input type="hidden" name="id_autor" value="<?= $row['idAutor'] ?>" />
 
                                 <input type="submit" name="deletion" value="Delete" />
+                                <input type="submit" name="edition" value="Edit" />
                             </form></td>
                     <?php }?>
                 </tr>
                 <?php }
-                if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
-                    $relevantId = $_POST["id_autor"];
-                    DeleteStory::deleteAutor($relevantId);
-                }
+
 
 
 

@@ -19,6 +19,15 @@ else{
     include 'Connection.php';
 }
 $relevantId;
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+    $someId = $_POST['id_story'];
+    DeleteStory::deleteStory($someId);//($row['idStory']);
+}
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
+    $someId = $_POST['id_story'];
+    header("Location:" . "editStory.php?idStory=$someId");
+    //($row['idStory']);
+}
 //include 'delet.php';
 ?>
     <main>
@@ -85,7 +94,7 @@ $relevantId;
                     </tr>
 
                     <?php foreach( $result2 as $row2 ) {
-                        func2($row2["idStory"]);
+                      //  func2($row2["idStory"]);
                         if($row2['approved'] !=0){
                             ?>
 
@@ -104,6 +113,7 @@ $relevantId;
                                             <input type="hidden" name="id_story" value="<?= $row2['idStory'] ?>" />
 
                                             <input type="submit" name="deletion" value="Delete" />
+                                            <input type="submit" name="edition" value="Edit" />
                                         </form>
 
                                     </td>
@@ -144,6 +154,7 @@ function func2($param){
 
     $stmt = $pdo->prepare("Update story set hodnoceni =$res where idStory = $param");
     $stmt->execute();
+
 }
 function func()
 {
@@ -151,6 +162,12 @@ function func()
     $stmt = $pdo->prepare("SELECT * FROM story");
     $stmt->execute();
     $result = $stmt -> fetchAll();
+  /*  foreach($result as $whatever){
+        func2($whatever['idStory']);
+    }
+    $stmt = $pdo->prepare("SELECT * FROM story");
+    $stmt->execute();
+    $result = $stmt -> fetchAll();*/
     ?>
     <table>
         <tr>
@@ -163,7 +180,7 @@ function func()
         </tr>
 
         <?php foreach( $result as $row ) {
-            func2($row['idStory']);
+          //  func2($row['idStory']);
             if($row['approved'] !=0){
 
                 ?>
@@ -183,6 +200,7 @@ function func()
                             <form action= "" method="post">
                                 <input type="hidden" name="id_story" value="<?= $row['idStory'] ?>" />
                                 <input type="submit" name="deletion" value="Delete" />
+                                <input type="submit" name="edition" value="Edit" />
                             </form>
                             <?php
 
@@ -192,10 +210,7 @@ function func()
                 </tr>
 
             <?php } }
-        if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
-            $someId = $_POST['id_story'];
-            DeleteStory::deleteStory($someId);//($row['idStory']);
-        }?>
+       ?>
     </table>
     <?php
 }

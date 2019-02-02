@@ -131,7 +131,7 @@ if(empty($_SESSION["user_id"])) {
                         echo "<script type='text/javascript'>alert('Improperly Selected boxes');</script>";
                     }
 
-                        else {
+                    else {
                         $name = $_POST['name'];
                         if (!empty($_POST['summary'])) {
                             $summary = $_POST['summary'];
@@ -142,26 +142,26 @@ if(empty($_SESSION["user_id"])) {
                         $choice2 = $_POST['select_create_author'];
                         $choice3 = $_POST['select_create_site'];
                         $conn = Connection::getPdoInstance();
-    try{
-                        $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary, $choice2,1)");
-                        $stmt1->bindParam(':name', $_POST["name"]);
-                        $stmt1->bindParam(':summary', $_POST["summary"]);
-                        $result1 = $stmt1->execute();
+                        try{
+                            $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary, $choice2,1)");
+                            $stmt1->bindParam(':name', $_POST["name"]);
+                            $stmt1->bindParam(':summary', $_POST["summary"]);
+                            $result1 = $stmt1->execute();
 
-                        $last_id = $conn->lastInsertId();
+                            $last_id = $conn->lastInsertId();
 
-                        $stmt1 = $conn->prepare("insert into linkstorystra (idStranky,idStor,linked) values ('$choice3','$last_id',:link)");
-                        $stmt1->bindParam(':link', $_POST['link']);
-                        $stmt1->execute();
+                            $stmt1 = $conn->prepare("insert into linkstorystra (idStranky,idStor,linked) values ('$choice3','$last_id',:link)");
+                            $stmt1->bindParam(':link', $_POST['link']);
+                            $stmt1->execute();
 
-                        $stmt1 = $conn->prepare("insert into tagstory (fkStory,fkTag) values ('$last_id','$choice1')");
-                        $stmt1->execute();
-                        //func();
+                            $stmt1 = $conn->prepare("insert into tagstory (fkStory,fkTag) values ('$last_id','$choice1')");
+                            $stmt1->execute();
+                            //func();
 
-                        echo "<script type='text/javascript'>window.location.href = 'stories.php';</script>";} catch(PDOException $ex){
-        echo "<script type='text/javascript'>alert('Story like that already exists');</script>";
-    }
-                       // header("location". "stories.php");
+                            echo "<script type='text/javascript'>window.location.href = 'stories.php';</script>";} catch(PDOException $ex){
+                            echo "<script type='text/javascript'>alert('Story like that already exists');</script>";
+                        }
+                        // header("location". "stories.php");
 
                         //header("location". "stories.php");
                         //following script found on https://stackoverflow.com/questions/6985507/one-time-page-refresh-after-first-page-load
