@@ -59,7 +59,7 @@ try{
     }catch(PDOException $ex){
            echo $ex;
 
-        echo "<script type='text/javascript'>alert('Some unknown fuckery is going on in here');</script>";
+        echo "<script type='text/javascript'>alert('Some unknown problem is going on in here');</script>";
     }
 
 
