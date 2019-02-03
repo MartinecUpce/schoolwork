@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
 }
 if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editing'])){
     $someId = $_POST['id_Review'];
-    header("Location:"."editReview.php?idRev=$someId&table='story'");
+    header("Location:"."editReview.php?idRev=$someId&table=story");
 }
 
 

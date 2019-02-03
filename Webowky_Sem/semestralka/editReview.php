@@ -1,26 +1,29 @@
 <?php
 include "DeleteStory.php";
+include 'elementals/header.php';
 $conn = Connection::getPdoInstance();
 
 if(empty($_GET["idRev"]) or empty($_GET["table"])){
     header("Location:"."about2.php");
     exit();
 }
+
 $idRev = $_GET["idRev"];
 $table = $_GET["table"];
 
 $stmt = $conn->prepare("select * from review where idReview = '$idRev'");
 $stmt->execute();
 $res = $stmt->fetch();
-if($table == "story"){
+if($table == 'story'){
     $idVar = $res["fkStoryid"];
+
 }else{
     $idVar = $res["fkAutorid"];
 }
-include 'elementals/header.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["cancel"])) {
-    if($table = "story"){
+    if($table == "story"){
         header("Location:"."storyDisplay.php?storyId=$idVar");
     }else{
         header("Location:"."authorDisplay.php?idAutoria=$idVar");
@@ -42,6 +45,7 @@ try{
            $stmt->execute();
 
            DeleteStory::updateHodnoceni($idVar,$table);
+
            if($table == "story"){
                header("Location:"."storyDisplay.php?storyId=$idVar");
            }else{
@@ -54,6 +58,7 @@ try{
         //    echo "<script type='text/javascript'>window.location.href = 'authorDisplay.php?idAutoria=$var';</script>";
     }catch(PDOException $ex){
            echo $ex;
+
         echo "<script type='text/javascript'>alert('Some unknown fuckery is going on in here');</script>";
     }
 
@@ -92,7 +97,7 @@ try{
 
 
                     </select>
-                    <input type="submit" name="updateReview" value="updateReview"/>
+                    <input type="submit" name="updateReview" value="Update review"/>
                     <input type="submit" name="cancel" value="Cancel"/>
 
                 </form>

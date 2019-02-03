@@ -64,7 +64,7 @@ $result = $stmt -> fetchAll();
 
             </div>
             <?php if (!empty($_SESSION["user_id"])) {?>
-                <h2 align="center"><a href = "siteCreation.php">Submit new story</a></h2>
+                <h2 align="center"><a href = "siteCreation.php">Submit new site</a></h2>
             <?php } ?>
         </div>
     </main>

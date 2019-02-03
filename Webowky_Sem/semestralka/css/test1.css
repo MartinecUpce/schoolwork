@@ -350,7 +350,7 @@ input[type=submit] {
     background-color: #45a049;
 }*/
 @media print {
-    header,footer,input[type=submit],select,label{
+    header,footer,input[type=submit],input[type=text],input[type=password],select,label{
         display: none;
     }
     h1,a{
