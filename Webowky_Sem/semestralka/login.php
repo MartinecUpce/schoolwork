@@ -21,14 +21,15 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
     $conn = Connection::getPdoInstance();//new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD);
    // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     //get user by email and password
+    $pass = md5($_POST["loginPassword"]);
     $stmt = $conn->prepare("SELECT idUzivatel, userNick, userMail,role FROM uzivatel 
-                                      WHERE userMail= :email and userPassword = :password");
+                                      WHERE userMail= :email and userPassword = '$pass'");
     $stmt->bindParam(':email', $_POST["loginMail"]);
-    $stmt->bindParam(':password', $_POST["loginPassword"]);
+    //$stmt->bindParam(':password', $_POST["loginPassword"]);
     $stmt->execute();
     $uzivatel = $stmt->fetch();
     if (!$uzivatel) {
-        echo "user not found";
+        echo "<script type='text/javascript'>alert('user not found');</script>";
     } else {
         echo "you are logged in. Your ID is: " . $uzivatel["idUzivatel"];
         $_SESSION["user_id"] = $uzivatel["idUzivatel"];
@@ -40,7 +41,7 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
     }
 
 } else if (!empty($_POST)) {
-    echo "Username and password are required";
+    echo "<script type='text/javascript'>alert('Username and password required');</script>";
 }
 
 

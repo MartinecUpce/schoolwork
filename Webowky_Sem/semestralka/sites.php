@@ -1,8 +1,20 @@
 <?php
 include 'elementals/header.php';
-include 'Connection.php';
+include 'DeleteStory.php';
 
 $pdo = Connection::getPdoInstance();
+
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
+    $someId = $_POST['id_Site'];
+    DeleteStory::deleteSite($someId);//($row['idStory']);
+}
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
+    $someId = $_POST['id_Site'];
+    header("Location:" . "editSite.php?idSite=$someId");
+    //($row['idStory']);
+}
+
+
 $stmt = $pdo->prepare("SELECT * FROM stranka");
 $stmt->execute();
 $result = $stmt -> fetchAll();
@@ -19,7 +31,7 @@ $result = $stmt -> fetchAll();
                         <th>Name</th>
 
                         <th>Brief Introduction</th>
-
+                        <th>editing</th>
                     </tr>
 
                     <?php foreach( $result as $row ) {
@@ -28,17 +40,37 @@ $result = $stmt -> fetchAll();
                         <tr>   <td> <a href="<?php echo $row['link']?>"><?php echo $row['jmeno'];?>
                                 </a>   </td>
 
-                            <td><?php echo
+                            <td><?php
                                 $str = $row['popisek'] ;
                                 echo wordwrap($str,50,"<br>\n");
-                                 ?></td></tr>
-                    <?php }
+                                 ?></td>
+                            <?php if (!empty($_SESSION["user_id"]) ) { ?>
+                                <td><form action= "" method="post">
+                                        <input type="hidden" name="id_Site" value="<?= $row['id_Stranka'] ?>" />
+                                        <?php if (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin'){?>
+                                        <input type="submit" name="deletion" value="Delete" />
+                                                <?php }?>
+                                        <input type="submit" name="edition" value="Edit" />
+                                    </form>
+
+                                </td>
+                            <?php }?>
+                        </tr>
+                    <?php
+                        }
                     } ?>
 
                 </table>
+
             </div>
+            <?php if (!empty($_SESSION["user_id"])) {?>
+                <h2 align="center"><a href = "siteCreation.php">Submit new story</a></h2>
+            <?php } ?>
         </div>
     </main>
+<br>
+<br>
+<br>
 <?php
 include 'elementals/footer.html';
 ?>

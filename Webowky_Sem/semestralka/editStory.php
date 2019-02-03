@@ -10,12 +10,105 @@
 
 include 'elementals/header.php';
 include 'DeleteStory.php';
-if(empty($_GET["idStory"])) {
+if(empty($_GET["idStory"]) or empty($_SESSION["logged"])) {
     header("location:" ."stories.php");
     exit();
 }
 $varId = $_GET["idStory"];
 $conn = Connection::getPdoInstance();
+if(isset($_POST["changeTag"])){
+    try {
+        $choiceTag = $_POST['select_create_tag'];
+        $stmt = $conn->prepare("update tagstory set tagstory.fkTag = $choiceTag where fkStory = $varId");
+        $stmt->execute();
+    }catch(PDOException $ex){
+
+        echo "<script type='text/javascript'>alert('Story is already under this tag');</script>";
+    }
+
+}
+if(isset($_POST["changeAuthor"])){
+    try{
+        $choiceAuthor = $_POST["select_create_author"];
+        $stmt = $conn->prepare("update story set story.fk_Autorid = $choiceAuthor where idStory = $varId");
+        $stmt->execute();
+        DeleteStory::updateHodnoceni($choiceAuthor,"Author");
+    }catch(PDOException $ex){
+
+        echo "<script type='text/javascript'>alert('That author already has story like that');</script>";
+    }
+}
+if(isset($_POST["changeName"])){
+    if(empty($_POST["name"])){
+        echo "<script type='text/javascript'>alert('Cannot have empty name');</script>";
+    }else{
+        try{
+            // $namen = $_POST["name"];
+            $stmt = $conn->prepare("update story set story.storyName = :name where idStory = $varId");
+            $stmt->bindParam(':name', $_POST['name']);
+            $stmt->execute();
+        }catch(PDOException $ex){
+
+            echo "<script type='text/javascript'>alert('That author already has story with such name');</script>";
+        }
+    }
+
+}
+if(isset($_POST["changeSummary"])){
+    if(empty($_POST["summary"])){
+        echo "<script type='text/javascript'>alert('Cannot have entirely empty summary');</script>";
+    }else{
+        try{
+            // $namen = $_POST["name"];
+            $stmt = $conn->prepare("update story set story.storySummary = :summary where idStory = $varId");
+            $stmt->bindParam(':summary', $_POST['summary']);
+            $stmt->execute();
+        }catch(PDOException $ex){
+
+            echo "<script type='text/javascript'>alert('bullshit');</script>";
+        }
+    }
+
+}
+if(isset($_POST["addLink"])){
+    if(empty($_POST["linkAdd"])){
+        echo "<script type='text/javascript'>alert('Cannot have entirely empty link');</script>";
+    }
+    else{
+        try{
+            $choiceLinkAdd = $_POST['select_add_site'];
+            $stmt1 = $conn->prepare("insert into linkstorystra(idStranky,idStor,linked) values('$choiceLinkAdd','$varId',:link)" );
+            $stmt1->bindParam(':link', $_POST['linkAdd']);
+            $stmt1->execute();
+        }catch(PDOException $ex){
+
+            echo "<script type='text/javascript'>alert('Cannot have two links to any, even default site');</script>";
+        }
+    }
+
+}
+if(isset($_POST["removeLink"])){
+
+
+    try{
+        $choiceLinkRemove = $_POST['select_remove_site'];
+        $stmt1 = $conn->prepare("delete from linkstorystra where idStranky = '$choiceLinkRemove' and idStor = $varId");
+
+        $stmt1->execute();
+    }catch(PDOException $ex){
+
+        echo "<script type='text/javascript'>alert('Cannot Delete for some reason');</script>";
+    }
+
+
+}
+if(isset($_POST["cancel"])){
+    echo "<script type='text/javascript'>window.location.href = 'authors.php';</script>";
+    exit();
+
+}
+
+
 $stmt = $conn->prepare("select * from story where idStory =$varId");
 $stmt->execute();
 $res = $stmt->fetch();
@@ -187,97 +280,7 @@ $link = $stmt->fetchColumn();*/
                 <br>
                 <br>
                 <?php
-                if(isset($_POST["changeTag"])){
-                    try {
-                        $choiceTag = $_POST['select_create_tag'];
-                        $stmt = $conn->prepare("update tagstory set tagstory.fkTag = $choiceTag where fkStory = $varId");
-                        $stmt->execute();
-                    }catch(PDOException $ex){
-                        echo $ex;
-                        echo "<script type='text/javascript'>alert('Story is already under this tag');</script>";
-                    }
 
-                }
-                if(isset($_POST["changeAuthor"])){
-                    try{
-                        $choiceAuthor = $_POST["select_create_author"];
-                        $stmt = $conn->prepare("update story set story.fk_Autorid = $choiceAuthor where idStory = $varId");
-                        $stmt->execute();
-                        DeleteStory::updateHodnoceni($choiceAuthor,"Author");
-                    }catch(PDOException $ex){
-                        echo $ex;
-                        echo "<script type='text/javascript'>alert('That author already has story like that');</script>";
-                    }
-                }
-                if(isset($_POST["changeName"])){
-                    if(empty($_POST["name"])){
-                        echo "<script type='text/javascript'>alert('Cannot have empty name');</script>";
-                    }else{
-                        try{
-                            // $namen = $_POST["name"];
-                            $stmt = $conn->prepare("update story set story.storyName = :name where idStory = $varId");
-                            $stmt->bindParam(':name', $_POST['name']);
-                            $stmt->execute();
-                        }catch(PDOException $ex){
-                            echo $ex;
-                            echo "<script type='text/javascript'>alert('That author already has story with such name');</script>";
-                        }
-                    }
-
-                }
-                if(isset($_POST["changeSummary"])){
-                    if(empty($_POST["summary"])){
-                        echo "<script type='text/javascript'>alert('Cannot have entirely empty summary');</script>";
-                    }else{
-                        try{
-                            // $namen = $_POST["name"];
-                            $stmt = $conn->prepare("update story set story.storySummary = :summary where idStory = $varId");
-                            $stmt->bindParam(':summary', $_POST['summary']);
-                            $stmt->execute();
-                        }catch(PDOException $ex){
-                            echo $ex;
-                            echo "<script type='text/javascript'>alert('bullshit');</script>";
-                        }
-                    }
-
-                }
-                if(isset($_POST["addLink"])){
-                    if(empty($_POST["linkAdd"])){
-                        echo "<script type='text/javascript'>alert('Cannot have entirely empty link');</script>";
-                    }
-                    else{
-                        try{
-                            $choiceLinkAdd = $_POST['select_add_site'];
-                            $stmt1 = $conn->prepare("insert into linkstorystra(idStranky,idStor,linked) values('$choiceLink','$varId',:link)" );
-                            $stmt1->bindParam(':link', $_POST['linkAdd']);
-                            $stmt1->execute();
-                        }catch(PDOException $ex){
-                            echo $ex;
-                            echo "<script type='text/javascript'>alert('Cannot have two links to any, even default site');</script>";
-                        }
-                    }
-
-                }
-                if(isset($_POST["removeLink"])){
-
-
-                    try{
-                        $choiceLink = $_POST['select_remove_site'];
-                        $stmt1 = $conn->prepare("delete from linkstorystra where idStranky = '$choiceLink' and idStor = $varId");
-
-                        $stmt1->execute();
-                    }catch(PDOException $ex){
-                        echo $ex;
-                        echo "<script type='text/javascript'>alert('Cannot Delete for some reason');</script>";
-                    }
-
-
-                }
-                if(isset($_POST["cancel"])){
-                    echo "<script type='text/javascript'>window.location.href = 'stories.php';</script>";
-                    exit();
-
-                }
                  ?>
             </div>
         </div>

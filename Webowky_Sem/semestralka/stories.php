@@ -145,7 +145,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
     </main>
 <?php
 include 'elementals/footer.html';
-function func2($param){
+/*function func2($param){
     $pdo = Connection::getPdoInstance();
 
     $stmt = $pdo->prepare("Select IFNULL(AVG(hodnoceni),0) from review where fkStoryid = $param");
@@ -155,7 +155,7 @@ function func2($param){
     $stmt = $pdo->prepare("Update story set hodnoceni =$res where idStory = $param");
     $stmt->execute();
 
-}
+}*/
 function func()
 {
     $pdo = Connection::getPdoInstance();
@@ -181,7 +181,7 @@ function func()
 
         <?php foreach( $result as $row ) {
           //  func2($row['idStory']);
-            if($row['approved'] !=0){
+            if($row['approved'] !=0 ){
 
                 ?>
 
@@ -209,7 +209,8 @@ function func()
                     <?php }?>
                 </tr>
 
-            <?php } }
+            <?php }
+        }
        ?>
     </table>
     <?php

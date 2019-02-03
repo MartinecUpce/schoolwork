@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["submit2"])) {
         $choice3 = $_POST['select_create_site'];
         $conn = Connection::getPdoInstance();
         try{
-            $stmt1 = $conn->prepare("insert into autor (nick,info,approved,hodnoceni) values (:nick,:info, 1,0)");
+            $stmt1 = $conn->prepare("insert into autor (nick,info,approved,hodnoceni) values (:nick,:info, 0,0)");
             $stmt1->bindParam(':nick', $_POST["nick"]);
             $stmt1->bindParam(':info', $_POST["info"]);
             $result1 = $stmt1->execute();

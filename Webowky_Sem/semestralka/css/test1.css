@@ -27,7 +27,7 @@ header nav a {
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
-
+    justify-content: center;
     font-size: 18px;
 }
 

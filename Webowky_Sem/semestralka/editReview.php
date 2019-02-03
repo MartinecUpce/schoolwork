@@ -37,7 +37,7 @@ try{
            $conn = Connection::getPdoInstance();
            //  $idSt = $_GET["idAutoria"];
 
-           $stmt = $conn->prepare("update review set content = :review,hodnoceni= '$choice' where idReview = $idRev");
+           $stmt = $conn->prepare("update review set content = :review,hodnoceni= '$choice',timeEdited = CURRENT_TIMESTAMP where idReview = $idRev");
            $stmt->bindParam(':review', $_POST["reviewArea"]);
            $stmt->execute();
 

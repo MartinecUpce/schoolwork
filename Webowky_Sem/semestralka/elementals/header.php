@@ -25,10 +25,21 @@ session_start();
         <a href="stories.php">Stories</a>
 
             <?php if (!empty($_SESSION["user_id"])) { ?>
-                <a href="userPage.php">User</a>
+                <a href="userPage.php">Edit Self</a>
+
                 <a href="logout.php">Logout</a>
-            <?php } else { ?>
+            <?php
+            if($_SESSION["logged"] == "admin"){
+                ?>
+                <a href="users.php">Manage users</a>
+                <a href="tags.php">Manage tags</a>
+                <a href="approve.php">Approve</a>
+                <?php
+            }
+
+            } else { ?>
                 <a href="login.php">Login</a>
+                <a href="registration.php">Register</a>
             <?php } ?>
     </nav></header>
     </body>

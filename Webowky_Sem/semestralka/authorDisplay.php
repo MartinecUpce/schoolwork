@@ -61,6 +61,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editing'])){
                 <h1 align="center"><?php
                     echo $var2;
                     ?></h1>
+
+                    <h2>Info</h2>
+                    <p>
+                        <?php $conn = Connection::getPdoInstance();
+                        $stmt = $conn->prepare("select info from autor where idAutor = $var");
+                        $stmt->execute();
+                        $info = $stmt->fetchColumn();
+                        echo $info;
+                        ?>
+
+                    </p>
                 <h2>List of sites</h2>
                     <p>
                         <?php

@@ -143,7 +143,7 @@ if(empty($_SESSION["user_id"])) {
                         $choice3 = $_POST['select_create_site'];
                         $conn = Connection::getPdoInstance();
                         try{
-                            $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary, $choice2,1)");
+                            $stmt1 = $conn->prepare("insert into story (storyName,storySummary,fk_Autorid,approved) values (:name,:summary, $choice2,0)");
                             $stmt1->bindParam(':name', $_POST["name"]);
                             $stmt1->bindParam(':summary', $_POST["summary"]);
                             $result1 = $stmt1->execute();
@@ -179,6 +179,10 @@ if(empty($_SESSION["user_id"])) {
             </div>
         </div>
     </main>
+<br>
+<br>
+<br>
+<br>
 <?php
 include 'elementals/footer.html';
 ?>

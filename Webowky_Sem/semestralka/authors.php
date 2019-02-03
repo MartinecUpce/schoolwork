@@ -17,6 +17,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
     $relevantId = $_POST["id_autor"];
     DeleteStory::deleteAutor($relevantId);
 }
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
+    $relevantId = $_POST["id_autor"];
+    header("Location:"."editAuthor.php?idAuthor=$relevantId");
+}
 
 ?>
 <main>
@@ -30,6 +34,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
                 <tr>
                     <th>Nick</th>
                     <th>Rating</th>
+                    <th>Info (if insubstantial)</th>
                     <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                         <th>Deletion</th>
                     <?php }?>
@@ -40,6 +45,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['deletion'])){
                 <tr>   <td> <a href="./authorDisplay.php?idAutoria=<?php echo $row['idAutor']?>"><?php echo $row['nick'];?>
                     </a>   </td>
                     <td><?php echo $row['hodnoceni'] ?></td>
+                    <td> <?php $str = $row['info'] ;
+                        echo wordwrap($str,50,"<br>\n"); ?></td>
                     <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                         <td><form action= "" method="post">
                                 <input type="hidden" name="id_autor" value="<?= $row['idAutor'] ?>" />

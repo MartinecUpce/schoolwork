@@ -35,6 +35,17 @@ class DeleteStory
         $stmt->execute();
 
     }
+    static function deleteSite($paramId) : void
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt = $conn->prepare("DELETE FROM linkautstr WHERE idStranky = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM linkstorystra WHERE idStranky = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("DELETE FROM stranka WHERE id_Stranka = $paramId");
+        $stmt->execute();
+
+    }
 
     static function updateHodnoceni($id,$table):void
     {
