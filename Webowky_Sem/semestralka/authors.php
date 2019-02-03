@@ -41,7 +41,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
 
                 </tr>
 
-                <?php foreach( $result as $row ) { ?>
+                <?php foreach( $result as $row ) {
+                    if($row["approved"]!=0){ ?>
                 <tr>   <td> <a href="./authorDisplay.php?idAutoria=<?php echo $row['idAutor']?>"><?php echo $row['nick'];?>
                     </a>   </td>
                     <td><?php echo $row['hodnoceni'] ?></td>
@@ -57,6 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
                     <?php }?>
                 </tr>
                 <?php }
+                }
 
 
 
@@ -71,6 +73,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
         <?php } ?>
     </div>
 </main>
+<br>
+<br>
+<br>
+<br>
 <?php
 
 include('elementals/footer.html')

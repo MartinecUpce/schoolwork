@@ -106,7 +106,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["submit2"])) {
 
             </div>
         </div>
+
     </main>
+<br>
+<br>
+<br>
+<br>
 <?php
 include 'elementals/footer.html';
 ?>

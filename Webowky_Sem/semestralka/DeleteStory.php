@@ -133,6 +133,27 @@ class DeleteStory
         $stmt->execute();
         header("location:" . "authors.php");
     }
+    static function deleteUser($paramId) : void
+    {
+        $conn = Connection::getPdoInstance();
+        $stmt =$conn->prepare("delete from review where fkUzivatelid = $paramId ");
+        $stmt->execute();
+        $stmt = $conn->prepare("delete from uzivatel where idUzivatel = $paramId");
+        $stmt->execute();
+        $stmt = $conn->prepare("select * from review where fkAutorid is NULL");
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        foreach($res as $row){
+            self::updateHodnoceni($row["idReview"],"story");
+        }
+        $stmt = $conn->prepare("select * from review where fkStoryid is NULL");
+        $stmt->execute();
+        $res = $stmt->fetchAll();
+        foreach($res as $row){
+            self::updateHodnoceni($row["idReview"],"author");
+        }
+    }
+
     /*static function createStory($paramIdUser, $paramIdVar, $var) : void
     {
         $conn = Connection::getPdoInstance();

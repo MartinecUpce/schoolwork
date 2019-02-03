@@ -28,6 +28,19 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
     header("Location:" . "editStory.php?idStory=$someId");
     //($row['idStory']);
 }
+if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['export'])){
+    $conn = Connection::getPdoInstance();
+    $stmt = $conn->prepare("select * from story where approved!=0");
+    $stmt->execute();
+    //taken from https://stackoverflow.com/questions/3700471/php-download-variable-content-as-file
+    $toExp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $json = json_encode($toExp);
+    file_put_contents('myfile.json', $json);
+    header("Content-type: text/plain");
+    header("Content-Disposition: attachment; filename='myfile.json'");
+
+    //($row['idStory']);
+}
 //include 'delet.php';
 ?>
     <main>
@@ -141,8 +154,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
             <h2 align="center"><a href = "storyCreation.php">Submit new story</a></h2>
             <?php } ?>
 
+            <form action="" method="post">
+                <input type="submit" name="export" value="Export" />
+            </form>
         </div>
     </main>
+<br>
+<br>
+<br>
+<br>
 <?php
 include 'elementals/footer.html';
 /*function func2($param){

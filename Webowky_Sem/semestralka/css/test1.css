@@ -301,6 +301,7 @@ input[type=submit] {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .div-review-section{
     background-color: #4CAF50;
     color: white;
@@ -348,3 +349,12 @@ input[type=submit] {
 /*input[type=submit]:hover {
     background-color: #45a049;
 }*/
+@media print {
+    header,footer,input[type=submit],select,label{
+        display: none;
+    }
+    h1,a{
+        color: black;
+    }
+
+}
