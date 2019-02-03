@@ -43,17 +43,22 @@ if(isset($_POST["addLink"])){
 }
 if(isset($_POST["removeLink"])){
 
-
-    try{
-        $choiceLinkRemove = $_POST['select_remove_site'];
-        $stmt1 = $conn->prepare("delete from linkautstr where idStranky = '$choiceLinkRemove' and idAutora = $varId");
-
-        $stmt1->execute();
-    }catch(PDOException $ex){
-
-        echo "<script type='text/javascript'>alert('Cannot Delete for some reason');</script>";
+    if(empty($_POST['select_remove_site'])){
+        echo "<script type='text/javascript'>alert('There is nothing to remove');</script>";
     }
+    else {
+        try {
 
+            $choiceLinkRemove = $_POST['select_remove_site'];
+            $stmt1 = $conn->prepare("delete from linkautstr where idStranky = '$choiceLinkRemove' and idAutora = $varId");
+
+            $stmt1->execute();
+
+        } catch (PDOException $ex) {
+
+            echo "<script type='text/javascript'>alert('Cannot Delete for some reason');</script>";
+        }
+    }
 
 }
 if(isset($_POST["changeNick"])){
