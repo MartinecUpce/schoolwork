@@ -57,9 +57,9 @@ $tagRes = $stmt->fetchAll();
 
             ?>
             <div>
-                <h2 align="center">Manage Tags</h2>
+                <h2 class="h2">Manage Tags</h2>
                 <p>
-                    <form action="" method="post">
+                    <form method="post">
 
                     <input type="text" name="newTag" placeholder="new tag">
 
@@ -67,7 +67,7 @@ $tagRes = $stmt->fetchAll();
                 </form>
                 </p>
                 <p>
-                <form action="" method="post">
+                <form method="post">
 
                     <label>Genre tag of story: </label><select name="remove_tag_select">
                         <?php

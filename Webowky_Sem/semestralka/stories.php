@@ -122,7 +122,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['export'])){
                                     //echo $row2['storySummary']
                                     ?></td>
                                 <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
-                                    <td><form action= "" method="post">
+                                    <td><form method="post">
                                             <input type="hidden" name="id_story" value="<?= $row2['idStory'] ?>" />
 
                                             <input type="submit" name="deletion" value="Delete" />

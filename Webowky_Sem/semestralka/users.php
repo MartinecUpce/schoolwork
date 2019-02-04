@@ -51,7 +51,7 @@ $result = $stmt -> fetchAll();
                             <?php if($row['role']== 'user'){ ?>
 
                                 <td>
-                                    <form action="" method="post">
+                                    <form method="post">
 
                                         <input type="hidden" name="idUser" value="<?= $row['idUzivatel'] ?>" />
                                         <input type="submit" name="deletion" value="Delete" />

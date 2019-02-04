@@ -53,22 +53,22 @@ if(isset($_POST["editPassword"])){
                 <h2>Edit user <?php echo $res["userNick"];?></h2>
                 <p>
                 <?php if($res["role"] == 'user'){ ?>
-                <form action="" method="post">
+                <form method="post">
 
-                    <input align="right" type="submit" name="makeAdmin" value="Grant admin rights"/>
+                    <input class="p2" type="submit" name="makeAdmin" value="Grant admin rights"/>
                 </form>
                 <?php }
                 else{ ?>
-                    <form action="" method="post">
+                    <form method="post">
 
-                    <input align="right" type="submit" name="unmakeAdmin" value="Revoke admin rights"/>
+                    <input class="p2" type="submit" name="unmakeAdmin" value="Revoke admin rights"/>
                 </form>
                 <?php } ?>
             </p>
                 <p>
-                    <form action="" method="post">
+                    <form method="post">
                     <input type="password" name="newPassword" placeholder="new password">
-                    <input align="right" type="submit" name="editPassword" value="Edit password"/>
+                    <input class="p2" type="submit" name="editPassword" value="Edit password"/>
                     </form>
                 </p>
             </div>

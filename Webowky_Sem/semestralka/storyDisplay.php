@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["postReview"])) {
                 $what = $result["storyName"];
 
                 ?>
-                <h1 align="center"><?php
+                <h1 class="h2"><?php
                     echo $what?></h1>
                 <h2>Summary</h2>
                 <?php
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["postReview"])) {
 
 
 
-                        <form action="" method="post">
+                        <form method="post">
                             <input type="hidden" name="id_Review" value="<?= $row['idReview'] ?>"/>
                             <input align="right" type="submit" name="deletion" value="Delete"/>
                             <?php
@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" and isset($_POST["postReview"])) {
                 </div>
 
 <br>
-<form action="" method="post">
+<form method="post">
 
 
     <label>Review:</label>  <textarea name="reviewArea" rows="5" cols="40" maxlength="1000"><?php $review ?></textarea>

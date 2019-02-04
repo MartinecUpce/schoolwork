@@ -18,7 +18,7 @@ if(empty($_SESSION["user_id"])) {
         <link rel="stylesheet" type="text/css" href="css/test2.css">
         <div class="center-wrapper">
             <div>
-                <h2 align="center"></h2>
+                <h2 class="h2"></h2>
                 <?php if (!empty($_SESSION["user_id"])) {
 
                     $name = "";

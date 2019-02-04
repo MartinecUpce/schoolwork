@@ -125,14 +125,14 @@ $stmt->execute();
             <p>
                 <h2>Welcome user <?php echo $result["userNick"]; ?></h2>
                 <p>
-                   <form action="" method="post">
+                   <form method="post">
                     <input type="email" name="newEmail" placeholder="Insert your email">
                 <input type="password" name="oldPassword" placeholder="verify old password">
                     <input type="submit" name="editMail" value="Edit Email"/>
                 </form>
             </p>
             <p>
-            <form action="" method="post">
+            <form method="post">
 
                 <input type="password" name="newPassword2" placeholder="new password">
                     <input type="password" name="newPassword" placeholder="control new password">
@@ -143,7 +143,7 @@ $stmt->execute();
 
             </form>
             <p>
-            <form action="" method="post">
+            <form method="post">
                 <input type="text" name="newNick" value="new nick here">
                 <input type="password" name="oldPassword3" placeholder="verify old password">
 
@@ -166,10 +166,10 @@ $stmt->execute();
     ?>
 <main>
     <link rel="stylesheet" type="text/css" href="css/test1.css">
-    <link rel="stylesheet" type="text/css" href="../css/test2.css">
+    <link rel="stylesheet" type="text/css" href="css/test2.css">
     <div class="center-wrapper">
         <div>
-            <h2 align = center>You have no business being here, snooper</h2>
+            <h2 class="h2">You have no business being here, snooper</h2>
 
         </div>
     </div>

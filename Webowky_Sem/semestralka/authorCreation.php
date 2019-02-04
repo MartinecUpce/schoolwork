@@ -18,7 +18,7 @@ $conn = Connection::getPdoInstance();
         <link rel="stylesheet" type="text/css" href="css/test2.css">
         <div class="center-wrapper">
 
-            <form action="" method="post">
+            <form method="post">
                 <br>
                 <label>link to home site:</label><select name="select_create_site">
                     <?php
