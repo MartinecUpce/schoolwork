@@ -15,7 +15,7 @@ if(empty($_SESSION["user_id"])) {
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
-        <link rel="stylesheet" type="text/css" href="../css/test2.css">
+        <link rel="stylesheet" type="text/css" href="css/test2.css">
         <div class="center-wrapper">
             <div>
                 <h2 align="center"></h2>

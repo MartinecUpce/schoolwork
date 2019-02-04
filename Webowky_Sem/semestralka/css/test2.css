@@ -50,7 +50,7 @@
 
 }
 
-@media print {
+/*@media print {
     header,footer,input[type=submit],select,label{
         display: none;
     }
@@ -58,4 +58,4 @@
         color: black;
     }
 
-}
+}*/

@@ -75,5 +75,12 @@ if (!empty($_POST) && !empty($_POST["loginMail"]) && !empty($_POST["loginPasswor
 /*password_verify($_POST['loginPassword'], $user['heslo']);
 na přihlášení
 $newPass = password_hash($_POST["psw"], PASSWORD_BCRYPT);*/
+
+
+/*<meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../css/test1.css">
+    <link rel="stylesheet" type="text/css" href="../css/test2.css">*/
+
+
 include 'elementals/footer.html';
 ?>

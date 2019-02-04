@@ -15,7 +15,7 @@ $conn = Connection::getPdoInstance();
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
-        <link rel="stylesheet" type="text/css" href="../css/test2.css">
+        <link rel="stylesheet" type="text/css" href="css/test2.css">
         <div class="center-wrapper">
 
             <form action="" method="post">

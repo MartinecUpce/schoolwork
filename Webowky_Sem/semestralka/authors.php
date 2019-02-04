@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['edition'])){
 ?>
 <main>
     <link rel="stylesheet" type="text/css" href="css/test1.css">
-    <link rel="stylesheet" type="text/css" href="../css/test2.css">
+    <link rel="stylesheet" type="text/css" href="/css/test2.css">
     <div class="center-wrapper">
         <div>
             <h2>Authors</h2>
@@ -83,3 +83,4 @@ include('elementals/footer.html')
 
 
 ?>
+

@@ -7,11 +7,16 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+<head>
 
+    <title>reviewer</title>
     <meta charset="UTF-8">
-
     <link rel="stylesheet" type="text/css" href="../css/test1.css">
     <link rel="stylesheet" type="text/css" href="../css/test2.css">
+</head>
+
+
+
     <body>
     <header><nav id="nav">
         <a href="about2.php">About</a>
@@ -37,11 +42,12 @@ session_start();
                 <a href="registration.php">Register</a>
             <?php } ?>
     </nav></header>
-    </body>
     <section id="hero">
         <div>
             <h1>Review internet authors, find the best ones</h1>
 
         </div>
     </section>
-</html>
+
+
+

@@ -107,7 +107,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['editing'])){
                     <h2>Reviews</h2>
                     <div class="one">
                         <?php
-                        $stmt = $conn->prepare("Select review.hodnoceni,review.idReview,review.content,u.userNick,review.timeCreated,u.idUzivatel from autor join review on autor.idAutor = review.fkAutorid join uzivatel u on review.fkUzivatelid = u.idUzivatel where autor.idAutor = $var");
+                        $stmt = $conn->prepare("Select review.hodnoceni,review.idReview,review.content,u.userNick,review.timeCreated,u.idUzivatel,review.timeEdited from autor join review on autor.idAutor = review.fkAutorid join uzivatel u on review.fkUzivatelid = u.idUzivatel where autor.idAutor = $var");
                         $stmt ->execute();
 
                         $result = $stmt->fetchAll();

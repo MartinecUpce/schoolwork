@@ -120,7 +120,7 @@ $stmt->execute();
     ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
-        <link rel="stylesheet" type="text/css" href="../css/test2.css">
+        <link rel="stylesheet" type="text/css" href="/css/test2.css">
         <div class="center-wrapper">
             <p>
                 <h2>Welcome user <?php echo $result["userNick"]; ?></h2>

@@ -45,8 +45,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['export'])){
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
-        <link rel="stylesheet" type="text/css" href="../css/test2.css">
-        <link rel="stylesheet" type="text/css" href="../css/forms.css">
+        <link rel="stylesheet" type="text/css" href="css/test2.css">
+        <link rel="stylesheet" type="text/css" href="css/forms.css">
         <div class="center-wrapper">
             <div>
                 <h2>Stories</h2>
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['export'])){
                 $result1 = $stmt1->execute();
                 $result1 = $stmt1 ->fetchAll();
                 ?>
-                <form action="" method="post">
+                <form method="post">
                 <label>Sort tags: </label><select name="select_tag">
                     <?php
                     $i = 0;
@@ -151,10 +151,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['export'])){
 
             </div>
             <?php if (!empty($_SESSION["user_id"])) {?>
-            <h2 align="center"><a href = "storyCreation.php">Submit new story</a></h2>
+            <h2 class="h2"><a href = "storyCreation.php">Submit new story</a></h2>
             <?php } ?>
 
-            <form action="" method="post">
+            <form method="post">
                 <input type="submit" name="export" value="Export" />
             </form>
         </div>
@@ -217,7 +217,7 @@ function func()
                         ?></td>
                     <?php if (!empty($_SESSION["user_id"]) and (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin')) { ?>
                         <td>
-                            <form action= "" method="post">
+                            <form method="post">
                                 <input type="hidden" name="id_story" value="<?= $row['idStory'] ?>" />
                                 <input type="submit" name="deletion" value="Delete" />
                                 <input type="submit" name="edition" value="Edit" />

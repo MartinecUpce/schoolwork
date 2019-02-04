@@ -157,7 +157,7 @@ $link = $stmt->fetchColumn();*/
 
                         foreach($result1 as $row1) { ?>
 
-                            <option <?php if($row1["idTag"] == $tags) {echo 'selected'; }?> value="<?=$row1["idTag"];?>"><?=$row1["tagName"];?></option>
+                            <option <?php if($row1["idTag"] == $tags) {echo 'selected' ; }?> value="<?=$row1["idTag"];?>"><?=$row1["tagName"];?></option>
 
 
 
@@ -171,7 +171,7 @@ $link = $stmt->fetchColumn();*/
                     <input type="submit" name="changeTag" value="Change Tag"/>
                     <br>
                 </form>
-                <form action="" method="post">
+                <form method="post">
 
                     <label>Change to some other author </label>
                     <select name="select_create_author">
@@ -197,7 +197,7 @@ $link = $stmt->fetchColumn();*/
                    <br>
 
 
-                <form action="" method="post">
+                <form method="post">
 
                     <label>Change Name: </label><input type="text" name="name" value="<?php echo $name; ?>">
 
@@ -205,14 +205,14 @@ $link = $stmt->fetchColumn();*/
                     <input type="submit" name="changeName" value="change name"/>
                 </form>
                 <br>
-                <form action="" method ="post">
+                <form method ="post">
                     <label>Change Summary:</label>  <textarea name="summary" rows="5" cols="40" maxlength="1000"><?php echo $summary; ?></textarea>
 
                     <br>
                     <input type="submit" name="changeSummary" value="Change summary"/>
                 </form>
                 <br>
-                <form action ="" method="post">
+                <form method="post">
                     <label>Select site for link: </label>
                     <select name="select_add_site">
                         <?php
@@ -223,7 +223,7 @@ $link = $stmt->fetchColumn();*/
                         $p = 0;
                         foreach($result1 as $row1) { if($p ==0){?>
 
-                            <option value="<?=$row1["id_Stranka"];?>", selected="selected"><?=$row1["jmeno"];?></option>
+                            <option value="<?=$row1["id_Stranka"];?>" selected="selected"><?=$row1["jmeno"];?></option>
                             <?php $p = 1;  }else {
                             ?>
 
@@ -243,7 +243,7 @@ $link = $stmt->fetchColumn();*/
                 </form>
 
 
-                <form action ="" method="post">
+                <form method="post">
                     <label>Remove existing link: </label>
                     <select name="select_remove_site">
                         <?php
@@ -254,7 +254,7 @@ $link = $stmt->fetchColumn();*/
                         $p = 0;
                         foreach($result1 as $row1) { if(p ==0){?>
 
-                            <option value="<?=$row1["id_Stranka"];?>", selected="selected"><?=$row1["jmeno"];?></option>
+                            <option value="<?=$row1["id_Stranka"];?>" selected="selected"><?=$row1["jmeno"];?></option>
                             <?php $p = 1;  }else {
                             ?>
 

@@ -86,7 +86,7 @@ if(empty($_SESSION["user_id"])){
         <link rel="stylesheet" type="text/css" href="css/test2.css">
         <div class="center-wrapper">
             <h2 align="center">Submit another site</h2>
-            <form action="" method="post">
+            <form method="post">
             <p>
                 <label>Name of site: </label>
                 <input type="text" name="name" value="<?php echo $nick; ?>">
@@ -94,14 +94,14 @@ if(empty($_SESSION["user_id"])){
             </p>
             </form>
                 <br>
-            <form action="" method="post">
+            <form method="post">
                 <p>
                 <label>Info:</label>  <textarea name="info" rows="5" cols="40" maxlength="1000"><?php echo $info; ?></textarea>
                     <input type="submit" name="editInfo" value="Edit info"/>
                 </p>
             </form>
                 <br>
-            <form action="" method="post">
+            <form method="post">
                 <p>
                 <label>Link: </label><input type="text" name="link" value="<?php echo $link; ?>">
                     <input type="submit" name="editLink" value="Edit link"/>

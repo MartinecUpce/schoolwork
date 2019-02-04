@@ -23,9 +23,7 @@ if(isset($_POST["register"])){
                 $paff = md5($_POST['Password']);
 
                 $stmt = $conn->prepare("insert into uzivatel (userNick,userPassword,userMail,role) values(:Nick,'$paff',:Email,'user')");
-
-
-                    $stmt->bindParam(':Email', $_POST['Mail']);
+                $stmt->bindParam(':Email', $_POST['Mail']);
                 $stmt->bindParam(':Nick', $_POST['nick']);
 
                     $stmt->execute();
@@ -44,7 +42,7 @@ if(isset($_POST["register"])){
 ?>
     <main>
         <link rel="stylesheet" type="text/css" href="css/test1.css">
-        <link rel="stylesheet" type="text/css" href="../css/test2.css">
+        <link rel="stylesheet" type="text/css" href="/css/test2.css">
         <div class="center-wrapper">
             <div>
 

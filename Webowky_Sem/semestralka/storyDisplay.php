@@ -13,8 +13,8 @@ include 'DeleteStory.php';
 
 ?>
 <link rel="stylesheet" type="text/css" href="css/test1.css">
-<link rel="stylesheet" type="text/css" href="../css/test2.css">
-<link rel="stylesheet" type="text/css" href="../css/forms.css">
+<link rel="stylesheet" type="text/css" href="/css/test2.css">
+<link rel="stylesheet" type="text/css" href="/css/forms.css">
 <?php
 if(empty($_GET["storyId"])){
     header("Location:"."stories.php");

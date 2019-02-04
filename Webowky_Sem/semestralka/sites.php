@@ -20,7 +20,7 @@ $stmt->execute();
 $result = $stmt -> fetchAll();
 
 ?><link rel="stylesheet" type="text/css" href="css/test1.css">
-    <link rel="stylesheet" type="text/css" href="../css/test2.css">
+    <link rel="stylesheet" type="text/css" href="css/test2.css">
     <main>
 
         <div class="center-wrapper">
@@ -45,7 +45,7 @@ $result = $stmt -> fetchAll();
                                 echo wordwrap($str,50,"<br>\n");
                                  ?></td>
                             <?php if (!empty($_SESSION["user_id"]) ) { ?>
-                                <td><form action= "" method="post">
+                                <td><form method="post">
                                         <input type="hidden" name="id_Site" value="<?= $row['id_Stranka'] ?>" />
                                         <?php if (!empty($_SESSION["logged"]) and $_SESSION["logged"] == 'admin'){?>
                                         <input type="submit" name="deletion" value="Delete" />
